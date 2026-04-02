@@ -1,75 +1,86 @@
-# React + TypeScript + Vite
+# AI Chat Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight AI-powered chat application built with React, TypeScript, and OpenAI API. This app provides a clean, modern interface for conversing with AI assistants.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Frontend Framework**: React.js
+- **Language**: TypeScript
+- **Build Tool**: Vite
+- **AI API**: OpenAI API
+- **Styling**: Tailwind CSS v4
+- **Icons**: React Icons
 
-## React Compiler
+## Prerequisites
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- Node.js (v18 or higher recommended)
+- npm or yarn
+- OpenAI API key
 
-Note: This will impact Vite dev & build performances.
+## Setup Instructions
 
-## Expanding the ESLint configuration
+### 1. Install Dependencies
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Configure Environment Variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create a `.env` file in the root directory by copying the example file:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cp .env.example .env
 ```
+
+Edit the `.env` file and add your OpenAI API key:
+
+```env
+VITE_OPENAI_API_KEY=your_actual_openai_api_key_here
+```
+
+**Important**: Never commit your `.env` file to version control. It's already included in `.gitignore`.
+
+### 4. Run the Development Server
+
+```bash
+npm run dev
+```
+
+## Usage
+
+1. **Start a conversation**: Type your message in the input field at the bottom
+2. **Send message**: Click the "Send" button or press Enter
+3. **View responses**: AI responses appear
+4. **Clear history**: Click the "Clear" button in the header to reset the conversation
+
+## Project Structure
+
+```
+chat_web_app/
+├── src/
+│   ├── components/
+│   │   ├── Chat.tsx          # Main chat component
+│   │   ├── ChatMessage.tsx   # Individual message bubble component
+│   │   ├── LoadingMessage.tsx # Loading indicator component
+│   │   └── ConfirmModal.tsx  # Reusable confirmation modal
+│   ├── openai.ts             # OpenAI API service
+│   ├── types.ts              # TypeScript type definitions
+│   ├── App.tsx               # Root component
+│   ├── index.css             # Global styles & Tailwind imports
+│   └── main.tsx              # Application entry point
+├── .env                      # Environment variables (create this)
+├── .env.example              # Environment variables template
+├── .gitignore                # Git ignore rules
+├── package.json              # Project dependencies
+└── README.md                 # This file
+```
+
+## Security Notes
+
+⚠️ **Important Security Considerations**:
+
+- This app uses `dangerouslyAllowBrowser: true` to call OpenAI directly from the browser, which exposes your API key in the client-side code
+- **For production use**, implement a backend proxy server to securely handle API calls
+- Never commit your `.env` file or expose your API keys publicly
+- Consider implementing rate limiting and usage monitoring
