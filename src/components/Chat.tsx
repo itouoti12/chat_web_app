@@ -73,7 +73,6 @@ export default function Chat() {
       const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
       setError(errorMessage);
       
-      // Add error message to chat
       const errorMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
